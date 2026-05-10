@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Trip 1 -->
+        <record id="demo_trip_europe" model="travel.trip">
+            <field name="name">European Grand Tour 2026</field>
+            <field name="description"><![CDATA[<p>A 14-day adventure across the best of Europe! Starting in Paris, through the Swiss Alps, and ending in Rome.</p>]]></field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="date_start">2026-07-01</field>
+            <field name="date_end">2026-07-14</field>
+            <field name="total_budget">5000</field>
+            <field name="state">confirmed</field>
+        </record>
+
+        <record id="demo_stop_paris" model="travel.stop">
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="city_id" ref="city_paris"/>
+            <field name="arrival_date">2026-07-01</field>
+            <field name="departure_date">2026-07-04</field>
+            <field name="accommodation">Hotel Le Marais</field>
+            <field name="accommodation_cost">120</field>
+            <field name="transport_mode">flight</field>
+            <field name="transport_cost">450</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="demo_stop_rome" model="travel.stop">
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="city_id" ref="city_rome"/>
+            <field name="arrival_date">2026-07-05</field>
+            <field name="departure_date">2026-07-08</field>
+            <field name="accommodation">B&amp;B Roma Centro</field>
+            <field name="accommodation_cost">90</field>
+            <field name="transport_mode">train</field>
+            <field name="transport_cost">120</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="demo_stop_barcelona" model="travel.stop">
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="city_id" ref="city_barcelona"/>
+            <field name="arrival_date">2026-07-09</field>
+            <field name="departure_date">2026-07-14</field>
+            <field name="accommodation">Airbnb Gothic Quarter</field>
+            <field name="accommodation_cost">85</field>
+            <field name="transport_mode">flight</field>
+            <field name="transport_cost">80</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- Demo activities for Paris stop -->
+        <record id="demo_act_paris_1" model="travel.activity">
+            <field name="name">Visit Eiffel Tower</field>
+            <field name="stop_id" ref="demo_stop_paris"/>
+            <field name="city_id" ref="city_paris"/>
+            <field name="activity_type">sightseeing</field>
+            <field name="date">2026-07-01</field>
+            <field name="time_start">10.0</field>
+            <field name="time_end">12.0</field>
+            <field name="cost">26</field>
+        </record>
+
+        <record id="demo_act_paris_2" model="travel.activity">
+            <field name="name">Louvre Museum</field>
+            <field name="stop_id" ref="demo_stop_paris"/>
+            <field name="city_id" ref="city_paris"/>
+            <field name="activity_type">culture</field>
+            <field name="date">2026-07-02</field>
+            <field name="time_start">9.0</field>
+            <field name="time_end">13.0</field>
+            <field name="cost">17</field>
+        </record>
+
+        <record id="demo_act_paris_3" model="travel.activity">
+            <field name="name">Seine River Cruise</field>
+            <field name="stop_id" ref="demo_stop_paris"/>
+            <field name="city_id" ref="city_paris"/>
+            <field name="activity_type">sightseeing</field>
+            <field name="date">2026-07-03</field>
+            <field name="time_start">18.0</field>
+            <field name="time_end">19.5</field>
+            <field name="cost">15</field>
+        </record>
+
+        <!-- Demo checklist items -->
+        <record id="demo_checklist_1" model="travel.checklist.item">
+            <field name="name">Passport</field>
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="category">documents</field>
+            <field name="is_packed">True</field>
+        </record>
+        <record id="demo_checklist_2" model="travel.checklist.item">
+            <field name="name">Travel Adapter (EU)</field>
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="category">electronics</field>
+            <field name="is_packed">False</field>
+        </record>
+        <record id="demo_checklist_3" model="travel.checklist.item">
+            <field name="name">Sunscreen SPF 50</field>
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="category">toiletries</field>
+            <field name="is_packed">False</field>
+        </record>
+        <record id="demo_checklist_4" model="travel.checklist.item">
+            <field name="name">Comfortable Walking Shoes</field>
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="category">clothing</field>
+            <field name="is_packed">True</field>
+        </record>
+
+        <!-- Demo notes -->
+        <record id="demo_note_1" model="travel.note">
+            <field name="name">Hotel Check-in Details</field>
+            <field name="trip_id" ref="demo_trip_europe"/>
+            <field name="stop_id" ref="demo_stop_paris"/>
+            <field name="note_type">booking</field>
+            <field name="date">2026-07-01</field>
+            <field name="content"><![CDATA[<p>Check-in after 3 PM. Address: 12 Rue du Temple, Paris. Contact: +33 1 42 72 00 00</p>]]></field>
+        </record>
+
+        <!-- Demo Trip 2 -->
+        <record id="demo_trip_asia" model="travel.trip">
+            <field name="name">Southeast Asia Explorer</field>
+            <field name="description"><![CDATA[<p>Backpacking through Southeast Asia - temples, street food, and beautiful beaches!</p>]]></field>
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="date_start">2026-11-15</field>
+            <field name="date_end">2026-12-05</field>
+            <field name="total_budget">3000</field>
+            <field name="state">draft</field>
+        </record>
+
+        <record id="demo_stop_bangkok" model="travel.stop">
+            <field name="trip_id" ref="demo_trip_asia"/>
+            <field name="city_id" ref="city_bangkok"/>
+            <field name="arrival_date">2026-11-15</field>
+            <field name="departure_date">2026-11-20</field>
+            <field name="accommodation">Hostel Khao San</field>
+            <field name="accommodation_cost">15</field>
+            <field name="transport_mode">flight</field>
+            <field name="transport_cost">350</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="demo_stop_bali" model="travel.stop">
+            <field name="trip_id" ref="demo_trip_asia"/>
+            <field name="city_id" ref="city_bali"/>
+            <field name="arrival_date">2026-11-21</field>
+            <field name="departure_date">2026-12-05</field>
+            <field name="accommodation">Villa Ubud</field>
+            <field name="accommodation_cost">35</field>
+            <field name="transport_mode">flight</field>
+            <field name="transport_cost">120</field>
+            <field name="sequence">2</field>
+        </record>
+    </data>
+</odoo>

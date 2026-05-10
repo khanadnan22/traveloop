@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="menu_traveloop_root"
+              name="Traveloop"
+              web_icon="traveloop,static/description/icon.png"
+              sequence="50"/>
+
+
+    <menuitem id="menu_traveloop_dashboard"
+              name="Dashboard"
+              parent="menu_traveloop_root"
+              action="action_travel_trip_dashboard"
+              sequence="1"/>
+
+    <menuitem id="menu_traveloop_wizard"
+              name="✨ Magic Trip Generator"
+              parent="menu_traveloop_root"
+              action="action_travel_generator_wizard"
+              sequence="2"/>
+
+    <menuitem id="menu_traveloop_trips"
+              name="My Trips"
+              parent="menu_traveloop_root"
+              sequence="10"/>
+
+    <menuitem id="menu_traveloop_trips_all"
+              name="All Trips"
+              parent="menu_traveloop_trips"
+              action="action_travel_trip"
+              sequence="1"/>
+
+    <menuitem id="menu_traveloop_stops"
+              name="Trip Stops"
+              parent="menu_traveloop_trips"
+              action="action_travel_stop"
+              sequence="2"/>
+
+    <menuitem id="menu_traveloop_activities_sub"
+              name="Activities"
+              parent="menu_traveloop_trips"
+              action="action_travel_activity"
+              sequence="3"/>
+
+    <menuitem id="menu_traveloop_explore"
+              name="Explore"
+              parent="menu_traveloop_root"
+              sequence="20"/>
+
+    <menuitem id="menu_traveloop_cities"
+              name="Cities"
+              parent="menu_traveloop_explore"
+              action="action_travel_city"
+              sequence="1"/>
+
+    <menuitem id="menu_traveloop_activity_catalog"
+              name="Activity Catalog"
+              parent="menu_traveloop_explore"
+              action="action_travel_activity_catalog"
+              sequence="2"/>
+
+    <menuitem id="menu_traveloop_organize"
+              name="Organize"
+              parent="menu_traveloop_root"
+              sequence="30"/>
+
+    <menuitem id="menu_traveloop_checklist"
+              name="Packing Checklist"
+              parent="menu_traveloop_organize"
+              action="action_travel_checklist"
+              sequence="1"/>
+
+    <menuitem id="menu_traveloop_notes"
+              name="Trip Notes"
+              parent="menu_traveloop_organize"
+              action="action_travel_note"
+              sequence="2"/>
+
+    <menuitem id="menu_traveloop_expenses"
+              name="Expenses"
+              parent="menu_traveloop_organize"
+              action="action_travel_expense"
+              sequence="3"/>
+
+    <menuitem id="menu_traveloop_config"
+              name="Configuration"
+              parent="menu_traveloop_root"
+              groups="traveloop.group_travel_manager"
+              sequence="100"/>
+
+    <menuitem id="menu_traveloop_settings"
+              name="Manage Cities"
+              parent="menu_traveloop_config"
+              action="action_travel_city"
+              sequence="1"/>
+
+    <menuitem id="menu_traveloop_cities_config"
+              name="Manage Cities"
+              parent="menu_traveloop_config"
+              action="action_travel_city"
+              sequence="2"/>
+</odoo>

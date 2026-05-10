@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Popular Cities -->
+        <record id="city_paris" model="travel.city">
+            <field name="name">Paris</field>
+            <field name="country_id" ref="base.fr"/>
+            <field name="cost_index">3</field>
+            <field name="avg_daily_cost">150</field>
+            <field name="popularity">95</field>
+            <field name="latitude">48.8566</field>
+            <field name="longitude">2.3522</field>
+            <field name="timezone">Europe/Paris</field>
+            <field name="language">French</field>
+            <field name="currency_name">EUR</field>
+            <field name="best_time_to_visit">April - June, September - November</field>
+            <field name="description"><![CDATA[<p>The City of Light, known for the Eiffel Tower, Louvre Museum, and world-class cuisine. A must-visit destination for art, culture, and romance.</p>]]></field>
+        </record>
+
+        <record id="city_tokyo" model="travel.city">
+            <field name="name">Tokyo</field>
+            <field name="country_id" ref="base.jp"/>
+            <field name="cost_index">3</field>
+            <field name="avg_daily_cost">130</field>
+            <field name="popularity">92</field>
+            <field name="latitude">35.6762</field>
+            <field name="longitude">139.6503</field>
+            <field name="timezone">Asia/Tokyo</field>
+            <field name="language">Japanese</field>
+            <field name="currency_name">JPY</field>
+            <field name="best_time_to_visit">March - May, September - November</field>
+            <field name="description"><![CDATA[<p>A vibrant metropolis blending ultramodern with traditional. Famous for cherry blossoms, temples, incredible food, and cutting-edge technology.</p>]]></field>
+        </record>
+
+        <record id="city_new_york" model="travel.city">
+            <field name="name">New York</field>
+            <field name="country_id" ref="base.us"/>
+            <field name="cost_index">4</field>
+            <field name="avg_daily_cost">200</field>
+            <field name="popularity">97</field>
+            <field name="latitude">40.7128</field>
+            <field name="longitude">-74.0060</field>
+            <field name="timezone">America/New_York</field>
+            <field name="language">English</field>
+            <field name="currency_name">USD</field>
+            <field name="best_time_to_visit">April - June, September - November</field>
+            <field name="description"><![CDATA[<p>The Big Apple - iconic skyline, Broadway shows, Central Park, and endless cultural attractions. The city that never sleeps.</p>]]></field>
+        </record>
+
+        <record id="city_london" model="travel.city">
+            <field name="name">London</field>
+            <field name="country_id" ref="base.uk"/>
+            <field name="cost_index">4</field>
+            <field name="avg_daily_cost">180</field>
+            <field name="popularity">94</field>
+            <field name="latitude">51.5074</field>
+            <field name="longitude">-0.1278</field>
+            <field name="timezone">Europe/London</field>
+            <field name="language">English</field>
+            <field name="currency_name">GBP</field>
+            <field name="best_time_to_visit">May - September</field>
+            <field name="description"><![CDATA[<p>A global hub of history, culture, and innovation. Home to Big Ben, Buckingham Palace, and world-renowned museums.</p>]]></field>
+        </record>
+
+        <record id="city_bali" model="travel.city">
+            <field name="name">Bali</field>
+            <field name="country_id" ref="base.id"/>
+            <field name="cost_index">1</field>
+            <field name="avg_daily_cost">50</field>
+            <field name="popularity">88</field>
+            <field name="latitude">-8.3405</field>
+            <field name="longitude">115.0920</field>
+            <field name="timezone">Asia/Makassar</field>
+            <field name="language">Indonesian</field>
+            <field name="currency_name">IDR</field>
+            <field name="best_time_to_visit">April - October</field>
+            <field name="description"><![CDATA[<p>A tropical paradise with stunning beaches, ancient temples, lush rice terraces, and vibrant culture. Perfect for relaxation and adventure.</p>]]></field>
+        </record>
+
+        <record id="city_rome" model="travel.city">
+            <field name="name">Rome</field>
+            <field name="country_id" ref="base.it"/>
+            <field name="cost_index">2</field>
+            <field name="avg_daily_cost">120</field>
+            <field name="popularity">91</field>
+            <field name="latitude">41.9028</field>
+            <field name="longitude">12.4964</field>
+            <field name="timezone">Europe/Rome</field>
+            <field name="language">Italian</field>
+            <field name="currency_name">EUR</field>
+            <field name="best_time_to_visit">April - June, September - October</field>
+            <field name="description"><![CDATA[<p>The Eternal City, home to the Colosseum, Vatican, and centuries of history. Famous for art, architecture, and Italian cuisine.</p>]]></field>
+        </record>
+
+        <record id="city_dubai" model="travel.city">
+            <field name="name">Dubai</field>
+            <field name="country_id" ref="base.ae"/>
+            <field name="cost_index">4</field>
+            <field name="avg_daily_cost">190</field>
+            <field name="popularity">87</field>
+            <field name="latitude">25.2048</field>
+            <field name="longitude">55.2708</field>
+            <field name="timezone">Asia/Dubai</field>
+            <field name="language">Arabic</field>
+            <field name="currency_name">AED</field>
+            <field name="best_time_to_visit">November - March</field>
+            <field name="description"><![CDATA[<p>A futuristic city of luxury, featuring the Burj Khalifa, desert safaris, and world-class shopping malls.</p>]]></field>
+        </record>
+
+        <record id="city_bangkok" model="travel.city">
+            <field name="name">Bangkok</field>
+            <field name="country_id" ref="base.th"/>
+            <field name="cost_index">1</field>
+            <field name="avg_daily_cost">40</field>
+            <field name="popularity">86</field>
+            <field name="latitude">13.7563</field>
+            <field name="longitude">100.5018</field>
+            <field name="timezone">Asia/Bangkok</field>
+            <field name="language">Thai</field>
+            <field name="currency_name">THB</field>
+            <field name="best_time_to_visit">November - February</field>
+            <field name="description"><![CDATA[<p>A vibrant city known for ornate shrines, bustling street life, incredible street food, and vibrant nightlife.</p>]]></field>
+        </record>
+
+        <record id="city_barcelona" model="travel.city">
+            <field name="name">Barcelona</field>
+            <field name="country_id" ref="base.es"/>
+            <field name="cost_index">2</field>
+            <field name="avg_daily_cost">110</field>
+            <field name="popularity">89</field>
+            <field name="latitude">41.3851</field>
+            <field name="longitude">2.1734</field>
+            <field name="timezone">Europe/Madrid</field>
+            <field name="language">Spanish/Catalan</field>
+            <field name="currency_name">EUR</field>
+            <field name="best_time_to_visit">May - June, September - October</field>
+            <field name="description"><![CDATA[<p>A Mediterranean gem famous for Gaudí's architecture, beautiful beaches, and a lively food scene.</p>]]></field>
+        </record>
+
+        <record id="city_mumbai" model="travel.city">
+            <field name="name">Mumbai</field>
+            <field name="country_id" ref="base.in"/>
+            <field name="cost_index">1</field>
+            <field name="avg_daily_cost">35</field>
+            <field name="popularity">80</field>
+            <field name="latitude">19.0760</field>
+            <field name="longitude">72.8777</field>
+            <field name="timezone">Asia/Kolkata</field>
+            <field name="language">Hindi/Marathi</field>
+            <field name="currency_name">INR</field>
+            <field name="best_time_to_visit">November - February</field>
+            <field name="description"><![CDATA[<p>The city of dreams, Bollywood, and incredible diversity. A gateway to India's rich heritage and cuisine.</p>]]></field>
+        </record>
+
+        <record id="city_sydney" model="travel.city">
+            <field name="name">Sydney</field>
+            <field name="country_id" ref="base.au"/>
+            <field name="cost_index">3</field>
+            <field name="avg_daily_cost">160</field>
+            <field name="popularity">85</field>
+            <field name="latitude">-33.8688</field>
+            <field name="longitude">151.2093</field>
+            <field name="timezone">Australia/Sydney</field>
+            <field name="language">English</field>
+            <field name="currency_name">AUD</field>
+            <field name="best_time_to_visit">September - November, March - May</field>
+            <field name="description"><![CDATA[<p>Home to the iconic Opera House and Harbour Bridge. Beautiful beaches, world-class dining, and sunny weather.</p>]]></field>
+        </record>
+
+        <record id="city_istanbul" model="travel.city">
+            <field name="name">Istanbul</field>
+            <field name="country_id" ref="base.tr"/>
+            <field name="cost_index">2</field>
+            <field name="avg_daily_cost">70</field>
+            <field name="popularity">84</field>
+            <field name="latitude">41.0082</field>
+            <field name="longitude">28.9784</field>
+            <field name="timezone">Europe/Istanbul</field>
+            <field name="language">Turkish</field>
+            <field name="currency_name">TRY</field>
+            <field name="best_time_to_visit">April - May, September - November</field>
+            <field name="description"><![CDATA[<p>Where East meets West. Historic bazaars, stunning mosques, the Bosphorus strait, and Turkish delights.</p>]]></field>
+        </record>
+
+        <!-- Template Activities -->
+        <record id="activity_eiffel_tower" model="travel.activity">
+            <field name="name">Visit Eiffel Tower</field>
+            <field name="city_id" ref="city_paris"/>
+            <field name="activity_type">sightseeing</field>
+            <field name="cost">26</field>
+            <field name="description"><![CDATA[<p>Ascend the iconic iron lattice tower for panoramic views of Paris. Book skip-the-line tickets in advance.</p>]]></field>
+            <field name="address">Champ de Mars, 5 Av. Anatole France, 75007 Paris</field>
+            <field name="rating">4.7</field>
+        </record>
+
+        <record id="activity_louvre" model="travel.activity">
+            <field name="name">Explore the Louvre Museum</field>
+            <field name="city_id" ref="city_paris"/>
+            <field name="activity_type">culture</field>
+            <field name="cost">17</field>
+            <field name="description"><![CDATA[<p>The world's largest art museum, home to the Mona Lisa and Venus de Milo.</p>]]></field>
+            <field name="address">Rue de Rivoli, 75001 Paris</field>
+            <field name="rating">4.8</field>
+        </record>
+
+        <record id="activity_tsukiji" model="travel.activity">
+            <field name="name">Tsukiji Outer Market Food Tour</field>
+            <field name="city_id" ref="city_tokyo"/>
+            <field name="activity_type">food</field>
+            <field name="cost">45</field>
+            <field name="description"><![CDATA[<p>Sample the freshest sushi, tamagoyaki, and street food at Tokyo's famous market.</p>]]></field>
+            <field name="address">Tsukiji, Chuo City, Tokyo</field>
+            <field name="rating">4.6</field>
+        </record>
+
+        <record id="activity_colosseum" model="travel.activity">
+            <field name="name">Colosseum Guided Tour</field>
+            <field name="city_id" ref="city_rome"/>
+            <field name="activity_type">sightseeing</field>
+            <field name="cost">35</field>
+            <field name="description"><![CDATA[<p>Step inside the ancient amphitheater where gladiators once fought. Includes Roman Forum access.</p>]]></field>
+            <field name="address">Piazza del Colosseo, 1, 00184 Roma</field>
+            <field name="rating">4.8</field>
+        </record>
+
+        <record id="activity_bali_temple" model="travel.activity">
+            <field name="name">Tanah Lot Temple Visit</field>
+            <field name="city_id" ref="city_bali"/>
+            <field name="activity_type">culture</field>
+            <field name="cost">5</field>
+            <field name="description"><![CDATA[<p>Visit this stunning sea temple perched on a rock formation. Best at sunset.</p>]]></field>
+            <field name="address">Beraban, Kediri, Tabanan Regency, Bali</field>
+            <field name="rating">4.5</field>
+        </record>
+
+        <record id="activity_central_park" model="travel.activity">
+            <field name="name">Central Park Walking Tour</field>
+            <field name="city_id" ref="city_new_york"/>
+            <field name="activity_type">nature</field>
+            <field name="cost">0</field>
+            <field name="description"><![CDATA[<p>Explore the iconic 843-acre urban park in the heart of Manhattan.</p>]]></field>
+            <field name="address">Central Park, New York, NY</field>
+            <field name="rating">4.8</field>
+        </record>
+
+        <record id="activity_broadway" model="travel.activity">
+            <field name="name">Broadway Show</field>
+            <field name="city_id" ref="city_new_york"/>
+            <field name="activity_type">culture</field>
+            <field name="cost">120</field>
+            <field name="description"><![CDATA[<p>Experience world-class theater on Broadway. Book popular shows in advance!</p>]]></field>
+            <field name="address">Broadway, Times Square, New York, NY</field>
+            <field name="rating">4.9</field>
+        </record>
+
+        <record id="activity_burj_khalifa" model="travel.activity">
+            <field name="name">Burj Khalifa Observation Deck</field>
+            <field name="city_id" ref="city_dubai"/>
+            <field name="activity_type">sightseeing</field>
+            <field name="cost">50</field>
+            <field name="description"><![CDATA[<p>Visit the observation deck of the world's tallest building for stunning views of Dubai.</p>]]></field>
+            <field name="address">1 Sheikh Mohammed bin Rashid Blvd, Dubai</field>
+            <field name="rating">4.6</field>
+        </record>
+    </data>
+</odoo>

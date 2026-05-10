@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_travel_note_form" model="ir.ui.view">
+        <field name="name">travel.note.form</field>
+        <field name="model">travel.note</field>
+        <field name="arch" type="xml">
+            <form string="Trip Note">
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Note Title"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="trip_id"/>
+                            <field name="stop_id" domain="[('trip_id', '=', trip_id)]"/>
+                            <field name="note_type"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="is_important"/>
+                        </group>
+                    </group>
+                    <field name="content" placeholder="Write your note here..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_note_list" model="ir.ui.view">
+        <field name="name">travel.note.list</field>
+        <field name="model">travel.note</field>
+        <field name="arch" type="xml">
+            <list string="Trip Notes" editable="bottom"
+                  decoration-bf="is_important"
+                  decoration-warning="is_important">
+                <field name="date"/>
+                <field name="note_type"/>
+                <field name="name"/>
+                <field name="trip_id"/>
+                <field name="stop_id" domain="[('trip_id', '=', trip_id)]" optional="show"/>
+                <field name="is_important"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_note_search" model="ir.ui.view">
+        <field name="name">travel.note.search</field>
+        <field name="model">travel.note</field>
+        <field name="arch" type="xml">
+            <search string="Search Notes">
+                <field name="name"/>
+                <field name="trip_id"/>
+                <filter string="Important" name="important" domain="[('is_important', '=', True)]"/>
+                <group>
+                    <filter string="Trip" name="group_trip" context="{'group_by': 'trip_id'}"/>
+                    <filter string="Type" name="group_type" context="{'group_by': 'note_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_note" model="ir.actions.act_window">
+        <field name="name">Trip Notes</field>
+        <field name="res_model">travel.note</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_travel_note_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Jot down your travel notes!</p>
+        </field>
+    </record>
+</odoo>

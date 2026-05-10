@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_travel_stop_form" model="ir.ui.view">
+        <field name="name">travel.stop.form</field>
+        <field name="model">travel.stop</field>
+        <field name="arch" type="xml">
+            <form string="Trip Stop">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_activities" type="object" class="oe_stat_button" icon="fa-star">
+                            <field name="activity_count" widget="statinfo" string="Activities"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Stop Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="trip_id"/>
+                            <field name="city_id"/>
+                            <field name="country_id"/>
+                        </group>
+                        <group>
+                            <field name="arrival_date"/>
+                            <field name="departure_date"/>
+                            <field name="duration_days"/>
+                            <field name="transport_mode"/>
+                            <field name="transport_cost"/>
+                            <field name="accommodation"/>
+                            <field name="accommodation_cost"/>
+                            <field name="estimated_cost"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Activities" name="activities">
+                            <field name="activity_ids">
+                                <list editable="bottom">
+                                    <field name="name"/>
+                                    <field name="activity_type"/>
+                                    <field name="date"/>
+                                    <field name="time_start" widget="float_time"/>
+                                    <field name="time_end" widget="float_time"/>
+                                    <field name="cost" sum="Total"/>
+                                    <field name="is_booked"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_stop_list" model="ir.ui.view">
+        <field name="name">travel.stop.list</field>
+        <field name="model">travel.stop</field>
+        <field name="arch" type="xml">
+            <list string="Trip Stops" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="trip_id"/>
+                <field name="city_id"/>
+                <field name="country_id"/>
+                <field name="arrival_date"/>
+                <field name="departure_date"/>
+                <field name="duration_days"/>
+                <field name="transport_mode"/>
+                <field name="estimated_cost" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_stop_search" model="ir.ui.view">
+        <field name="name">travel.stop.search</field>
+        <field name="model">travel.stop</field>
+        <field name="arch" type="xml">
+            <search string="Search Stops">
+                <field name="city_id"/>
+                <field name="trip_id"/>
+                <field name="country_id"/>
+                <group>
+                    <filter string="Trip" name="group_trip" context="{'group_by': 'trip_id'}"/>
+                    <filter string="City" name="group_city" context="{'group_by': 'city_id'}"/>
+                    <filter string="Country" name="group_country" context="{'group_by': 'country_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_travel_stop_gantt" model="ir.ui.view">
+        <field name="name">travel.stop.gantt</field>
+        <field name="model">travel.stop</field>
+        <field name="arch" type="xml">
+            <gantt string="Trip Timeline"
+                   date_start="arrival_date"
+                   date_stop="departure_date"
+                   default_group_by="trip_id"
+                   color="trip_id"
+                   precision="day">
+                <field name="name"/>
+                <field name="city_id"/>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="action_travel_stop" model="ir.actions.act_window">
+        <field name="name">Trip Stops</field>
+        <field name="res_model">travel.stop</field>
+        <field name="view_mode">list,gantt,form</field>
+        <field name="search_view_id" ref="view_travel_stop_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Add your first stop!</p>
+        </field>
+    </record>
+</odoo>

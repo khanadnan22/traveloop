@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="portal_my_trips" name="My Trips">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Trips</t>
+            </t>
+            <div class="container mt-4">
+                <div class="row">
+                    <t t-foreach="trips" t-as="trip">
+                        <div class="col-md-4 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title" t-esc="trip.name"/>
+                                    <p class="text-muted">
+                                        <i class="fa fa-calendar"/> <span t-field="trip.date_start"/> - <span t-field="trip.date_end"/>
+                                    </p>
+                                    <p><span t-esc="trip.stop_count"/> stops · <span t-esc="trip.duration_days"/> days</p>
+                                    <a t-attf-href="/my/trips/#{trip.id}" class="btn btn-primary btn-sm">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_my_trip_detail" name="Trip Details">
+        <t t-call="portal.portal_layout">
+            <div class="container mt-4">
+                <h2 t-field="trip.name"/>
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-header"><h5>Itinerary</h5></div>
+                            <div class="card-body">
+                                <t t-foreach="trip.stop_ids" t-as="stop">
+                                    <div class="d-flex mb-3 p-2 border-start border-primary border-3">
+                                        <div class="flex-grow-1">
+                                            <h6 t-field="stop.city_id"/>
+                                            <small class="text-muted">
+                                                <span t-field="stop.arrival_date"/> → <span t-field="stop.departure_date"/>
+                                            </small>
+                                        </div>
+                                        <div class="text-end">
+                                            <span class="badge bg-info" t-esc="stop.duration_days"/> days
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-3">
+                            <div class="card-header"><h5>Budget</h5></div>
+                            <div class="card-body">
+                                <p>Total Budget: <strong t-field="trip.total_budget"/></p>
+                                <p>Estimated Cost: <strong t-field="trip.total_estimated_cost"/></p>
+                                <p>Remaining: <strong t-field="trip.budget_remaining"/></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Shared trip public view -->
+    <template id="shared_trip_view" name="Shared Trip">
+        <t t-call="web.frontend_layout">
+            <div class="container py-5">
+                <div class="text-center mb-4">
+                    <h1 t-field="trip.name"/>
+                    <p class="lead text-muted">
+                        <i class="fa fa-calendar"/> <span t-field="trip.date_start"/> - <span t-field="trip.date_end"/>
+                        · <span t-esc="trip.duration_days"/> days
+                        · <span t-esc="trip.stop_count"/> stops
+                    </p>
+                </div>
+                <div t-if="trip.description" class="mb-4">
+                    <div t-field="trip.description"/>
+                </div>
+                <h3 class="mb-3">Itinerary</h3>
+                <t t-foreach="trip.stop_ids" t-as="stop">
+                    <div class="card mb-3">
+                        <div class="card-header d-flex justify-content-between">
+                            <h5 class="mb-0" t-field="stop.city_id"/>
+                            <span class="badge bg-primary">
+                                <span t-field="stop.arrival_date"/> → <span t-field="stop.departure_date"/>
+                            </span>
+                        </div>
+                        <div class="card-body" t-if="stop.activity_ids">
+                            <t t-foreach="stop.activity_ids" t-as="activity">
+                                <div class="d-flex justify-content-between py-1 border-bottom">
+                                    <span><field name="activity_type" t-att-value="activity.activity_type"/> <span t-esc="activity.name"/></span>
+                                    <span class="text-muted" t-if="activity.cost">$<span t-esc="activity.cost"/></span>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

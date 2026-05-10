@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_travel_city_form" model="ir.ui.view">
+        <field name="name">travel.city.form</field>
+        <field name="model">travel.city</field>
+        <field name="arch" type="xml">
+            <form string="City">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_activities" type="object" class="oe_stat_button" icon="fa-star">
+                            <field name="activity_count" widget="statinfo" string="Activities"/>
+                        </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="City Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="country_id"/>
+                            <field name="cost_index"/>
+                            <field name="avg_daily_cost"/>
+                            <field name="popularity"/>
+                        </group>
+                        <group>
+                            <field name="timezone"/>
+                            <field name="language"/>
+                            <field name="currency_name"/>
+                            <field name="best_time_to_visit"/>
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="City description..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_city_list" model="ir.ui.view">
+        <field name="name">travel.city.list</field>
+        <field name="model">travel.city</field>
+        <field name="arch" type="xml">
+            <list string="Cities">
+                <field name="name"/>
+                <field name="country_id"/>
+                <field name="cost_index"/>
+                <field name="avg_daily_cost"/>
+                <field name="popularity"/>
+                <field name="best_time_to_visit"/>
+                <field name="stop_count" string="Times Visited"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_city_kanban" model="ir.ui.view">
+        <field name="name">travel.city.kanban</field>
+        <field name="model">travel.city</field>
+        <field name="arch" type="xml">
+            <kanban sample="1">
+                <field name="name"/>
+                <field name="country_id"/>
+                <field name="cost_index"/>
+                <field name="avg_daily_cost"/>
+                <field name="popularity"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="card">
+                        <div t-if="record.image.raw_value" class="mb-2">
+                            <field name="image" widget="image"/>
+                        </div>
+                        <div class="fw-bold fs-5"><field name="name"/></div>
+                        <div class="text-muted"><field name="country_id"/></div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <span class="badge text-bg-info"><field name="cost_index"/></span>
+                            <span>~$<field name="avg_daily_cost"/>/day</span>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_travel_city_search" model="ir.ui.view">
+        <field name="name">travel.city.search</field>
+        <field name="model">travel.city</field>
+        <field name="arch" type="xml">
+            <search string="Search Cities">
+                <field name="name"/>
+                <field name="country_id"/>
+                <filter string="Budget" name="budget" domain="[('cost_index', '=', '1')]"/>
+                <filter string="Moderate" name="moderate" domain="[('cost_index', '=', '2')]"/>
+                <filter string="Expensive" name="expensive" domain="[('cost_index', '=', '3')]"/>
+                <filter string="Luxury" name="luxury" domain="[('cost_index', '=', '4')]"/>
+                <group>
+                    <filter string="Country" name="group_country" context="{'group_by': 'country_id'}"/>
+                    <filter string="Cost Index" name="group_cost" context="{'group_by': 'cost_index'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_travel_city" model="ir.actions.act_window">
+        <field name="name">Explore Cities</field>
+        <field name="res_model">travel.city</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_travel_city_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Discover your next destination!</p>
+        </field>
+    </record>
+</odoo>

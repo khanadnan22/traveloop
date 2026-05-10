@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_city_planner,travel.city.planner,model_travel_city,group_travel_planner,1,0,0,0
+access_travel_city_manager,travel.city.manager,model_travel_city,group_travel_manager,1,1,1,1
+access_travel_trip_planner,travel.trip.planner,model_travel_trip,group_travel_planner,1,1,1,1
+access_travel_trip_manager,travel.trip.manager,model_travel_trip,group_travel_manager,1,1,1,1
+access_travel_stop_planner,travel.stop.planner,model_travel_stop,group_travel_planner,1,1,1,1
+access_travel_stop_manager,travel.stop.manager,model_travel_stop,group_travel_manager,1,1,1,1
+access_travel_activity_planner,travel.activity.planner,model_travel_activity,group_travel_planner,1,1,1,1
+access_travel_activity_manager,travel.activity.manager,model_travel_activity,group_travel_manager,1,1,1,1
+access_travel_checklist_planner,travel.checklist.item.planner,model_travel_checklist_item,group_travel_planner,1,1,1,1
+access_travel_checklist_manager,travel.checklist.item.manager,model_travel_checklist_item,group_travel_manager,1,1,1,1
+access_travel_note_planner,travel.note.planner,model_travel_note,group_travel_planner,1,1,1,1
+access_travel_note_manager,travel.note.manager,model_travel_note,group_travel_manager,1,1,1,1
+access_travel_expense_planner,travel.expense.planner,model_travel_expense,group_travel_planner,1,1,1,1
+access_travel_expense_manager,travel.expense.manager,model_travel_expense,group_travel_manager,1,1,1,1

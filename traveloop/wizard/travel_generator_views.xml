@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_generator_wizard_form" model="ir.ui.view">
+        <field name="name">travel.generator.wizard.form</field>
+        <field name="model">travel.generator.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Magic AI Trip Generator">
+                <group>
+                    <div class="alert alert-info" role="alert">
+                        <strong>AI Itinerary Planner:</strong> Tell us your vibe and budget, and we'll instantly generate a complete travel itinerary with dates, stops, activities, and a packing list!
+                    </div>
+                </group>
+                <group>
+                    <group>
+                        <field name="destination_vibe" widget="radio"/>
+                        <field name="budget_level" widget="priority"/>
+                    </group>
+                    <group>
+                        <field name="start_date"/>
+                        <field name="duration"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_trip" string="✨ Generate Magic Itinerary" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_travel_generator_wizard" model="ir.actions.act_window">
+        <field name="name">AI Trip Generator</field>
+        <field name="res_model">travel.generator.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

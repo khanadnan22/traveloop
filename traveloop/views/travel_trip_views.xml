@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+
+    <record id="view_travel_trip_form" model="ir.ui.view">
+        <field name="name">travel.trip.form</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <form string="Trip">
+                <header>
+                    <button name="action_confirm" string="Confirm" type="object"
+                            class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_start" string="Start Trip" type="object"
+                            class="btn-primary" invisible="state != 'confirmed'"/>
+                    <button name="action_complete" string="Complete" type="object"
+                            class="btn-success" invisible="state != 'ongoing'"/>
+                    <button name="action_share" string="Share Trip" type="object"
+                            class="btn-info" invisible="state in ('cancelled',)"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ('completed', 'cancelled')"/>
+                    <button name="action_draft" string="Reset to Draft" type="object"
+                            invisible="state not in ('cancelled',)"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,ongoing,completed"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_stops" type="object"
+                                class="oe_stat_button" icon="fa-map-marker">
+                            <field name="stop_count" widget="statinfo" string="Stops"/>
+                        </button>
+                        <button name="action_view_checklist" type="object"
+                                class="oe_stat_button" icon="fa-check-square-o">
+                            <field name="checklist_count" widget="statinfo" string="Checklist"/>
+                        </button>
+                        <button name="action_view_notes" type="object"
+                                class="oe_stat_button" icon="fa-sticky-note">
+                            <field name="note_count" widget="statinfo" string="Notes"/>
+                        </button>
+                        <button name="action_view_expenses" type="object"
+                                class="oe_stat_button" icon="fa-money">
+                            <field name="activity_count" widget="statinfo" string="Activities"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" text="Over Budget!" bg_color="text-bg-danger"
+                            invisible="not is_over_budget"/>
+                    <widget name="web_ribbon" text="Shared" bg_color="text-bg-info"
+                            invisible="not is_shared"/>
+                    <field name="cover_image" widget="image" class="oe_avatar"
+                           options='{"preview_image": "cover_image"}'/>
+                    <div class="oe_title">
+                        <label for="name" string="Trip Name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. European Adventure 2026"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Trip Details">
+                            <field name="user_id" widget="many2one_avatar_user"/>
+                            <field name="date_start" string="Dates" widget="daterange"
+                                   options="{'end_date_field': 'date_end'}"/>
+                            <field name="date_end" invisible="1"/>
+                            <field name="duration_days" string="Duration"/>
+                        </group>
+                        <group string="Budget">
+                            <field name="currency_id"/>
+                            <field name="total_budget"/>
+                            <field name="total_estimated_cost"/>
+                            <field name="budget_remaining"
+                                   decoration-danger="budget_remaining &lt; 0"
+                                   decoration-success="budget_remaining &gt;= 0"/>
+                            <field name="is_over_budget" invisible="1"/>
+                            <field name="is_shared" invisible="1"/>
+                            <field name="share_token" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Itinerary" name="itinerary">
+                            <field name="stop_ids">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="city_id"/>
+                                    <field name="country_id"/>
+                                    <field name="arrival_date"/>
+                                    <field name="departure_date"/>
+                                    <field name="duration_days"/>
+                                    <field name="transport_mode"/>
+                                    <field name="transport_cost"/>
+                                    <field name="accommodation"/>
+                                    <field name="accommodation_cost"/>
+                                    <field name="estimated_cost" sum="Total Estimated"/>
+                                    <field name="activity_count" string="Activities"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Packing Checklist" name="checklist">
+                            <div class="mb-2">
+                                <button name="action_generate_packing_list" type="object" string="✨ Auto-Generate Checklist" class="btn-secondary"/>
+                            </div>
+                            <field name="checklist_progress" widget="progressbar"/>
+                            <field name="checklist_ids">
+                                <list editable="bottom">
+                                    <field name="is_packed" widget="boolean_toggle"/>
+                                    <field name="category"/>
+                                    <field name="name"/>
+                                    <field name="quantity"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Notes &amp; Journal" name="notes">
+                            <field name="note_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="note_type"/>
+                                    <field name="name"/>
+                                    <field name="is_important"/>
+                                    <field name="stop_id" domain="[('trip_id', '=', parent.id)]"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Expenses" name="expenses">
+                            <field name="expense_ids">
+                                <list editable="bottom">
+                                    <field name="date"/>
+                                    <field name="category"/>
+                                    <field name="name"/>
+                                    <field name="amount" sum="Total Expenses"/>
+                                    <field name="payment_method"/>
+                                    <field name="stop_id" domain="[('trip_id', '=', parent.id)]"/>
+                                    <field name="notes"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Description" name="description">
+                            <field name="description"
+                                   placeholder="Describe your trip plans, goals, and expectations..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_travel_trip_list" model="ir.ui.view">
+        <field name="name">travel.trip.list</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <list string="My Trips" multi_edit="1" sample="1"
+                  decoration-info="state == 'draft'"
+                  decoration-success="state == 'ongoing'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration_days"/>
+                <field name="stop_count" string="Stops"/>
+                <field name="total_budget"/>
+                <field name="total_estimated_cost"/>
+                <field name="budget_remaining"
+                       decoration-danger="budget_remaining &lt; 0"
+                       decoration-success="budget_remaining &gt;= 0"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-primary="state == 'confirmed'"
+                       decoration-success="state in ('ongoing', 'completed')"
+                       decoration-danger="state == 'cancelled'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_travel_trip_gantt" model="ir.ui.view">
+        <field name="name">travel.trip.gantt</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <gantt string="Trip Timeline"
+                   date_start="date_start"
+                   date_stop="date_end"
+                   default_group_by="user_id"
+                   color="state"
+                   precision="day"
+                   decoration-info="state == 'draft'"
+                   decoration-success="state in ('ongoing', 'completed')">
+                <field name="name"/>
+                <field name="state"/>
+            </gantt>
+        </field>
+    </record>
+
+
+    <record id="view_travel_trip_kanban" model="ir.ui.view">
+        <field name="name">travel.trip.kanban</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" sample="1" default_group_by="state">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="date_start"/>
+                <field name="date_end"/>
+                <field name="duration_days"/>
+                <field name="stop_count"/>
+                <field name="total_budget"/>
+                <field name="total_estimated_cost"/>
+                <field name="is_over_budget"/>
+                <field name="color"/>
+                <field name="cover_image"/>
+                <field name="checklist_progress"/>
+                <templates>
+                    <t t-name="card" class="flex-row p-0">
+                        <aside class="col-4 p-0 position-relative" style="min-height: 120px;">
+                            <div t-if="record.cover_image.raw_value" class="h-100">
+                                <field name="cover_image" widget="image"
+                                       class="h-100 w-100" style="object-fit: cover;"/>
+                            </div>
+                            <div t-else="" class="h-100 d-flex align-items-center justify-content-center"
+                                 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <span class="fa fa-plane fa-3x text-white"/>
+                            </div>
+                        </aside>
+                        <main class="col p-3">
+                            <div class="fw-bold fs-5 text-truncate mb-1">
+                                <field name="name"/>
+                            </div>
+                            <div class="text-muted small mb-1">
+                                <i class="fa fa-calendar me-1"/>
+                                <field name="date_start"/> → <field name="date_end"/>
+                            </div>
+                            <div class="d-flex gap-3 small mb-1">
+                                <span>
+                                    <i class="fa fa-map-marker me-1"/>
+                                    <field name="stop_count"/> stops
+                                </span>
+                                <span>
+                                    <i class="fa fa-clock-o me-1"/>
+                                    <field name="duration_days"/> days
+                                </span>
+                            </div>
+                            <div t-if="record.total_budget.raw_value" class="small">
+                                <span class="badge rounded-pill"
+                                      t-attf-class="#{record.is_over_budget.raw_value ? 'text-bg-danger' : 'text-bg-success'}">
+                                    <field name="total_estimated_cost"/> / <field name="total_budget"/>
+                                </span>
+                            </div>
+                            <div class="mt-2" t-if="record.checklist_progress.raw_value &gt; 0">
+                                <div class="d-flex justify-content-between align-items-center small">
+                                    <span class="text-muted"><i class="fa fa-suitcase me-1"/>Packing</span>
+                                    <strong><t t-esc="Math.round(record.checklist_progress.raw_value)"/>%</strong>
+                                </div>
+                                <div class="progress" style="height: 4px;">
+                                    <div class="progress-bar bg-success" role="progressbar" t-attf-style="width: #{record.checklist_progress.raw_value}%"/>
+                                </div>
+                            </div>
+                            <footer class="pt-2">
+                                <field name="user_id" widget="many2one_avatar_user"/>
+                                <field name="state" widget="label_selection"
+                                       options="{'classes': {'draft': 'info', 'confirmed': 'primary', 'ongoing': 'success', 'completed': 'success', 'cancelled': 'danger'}}"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_travel_trip_calendar" model="ir.ui.view">
+        <field name="name">travel.trip.calendar</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <calendar string="Trips" date_start="date_start" date_stop="date_end"
+                      color="user_id" mode="month" event_limit="5">
+                <field name="name"/>
+                <field name="stop_count"/>
+                <field name="total_budget"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_travel_trip_search" model="ir.ui.view">
+        <field name="name">travel.trip.search</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <search string="Search Trips">
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="My Trips" name="my_trips" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Planning" name="planning" domain="[('state', '=', 'draft')]"/>
+                <filter string="Confirmed" name="confirmed" domain="[('state', '=', 'confirmed')]"/>
+                <filter string="Ongoing" name="ongoing" domain="[('state', '=', 'ongoing')]"/>
+                <filter string="Completed" name="completed" domain="[('state', '=', 'completed')]"/>
+                <separator/>
+                <filter string="Over Budget" name="over_budget" domain="[('is_over_budget', '=', True)]"/>
+                <filter string="Shared" name="shared" domain="[('is_shared', '=', True)]"/>
+                <group>
+                    <filter string="Status" name="group_state" context="{'group_by': 'state'}"/>
+                    <filter string="Traveler" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="Start Date" name="group_date" context="{'group_by': 'date_start:month'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="view_travel_trip_pivot" model="ir.ui.view">
+        <field name="name">travel.trip.pivot</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <pivot string="Trip Analysis">
+                <field name="user_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="total_budget" type="measure"/>
+                <field name="total_estimated_cost" type="measure"/>
+                <field name="duration_days" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="view_travel_trip_graph" model="ir.ui.view">
+        <field name="name">travel.trip.graph</field>
+        <field name="model">travel.trip</field>
+        <field name="arch" type="xml">
+            <graph string="Trip Analytics" type="bar">
+                <field name="date_start" type="row" interval="month"/>
+                <field name="total_estimated_cost" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+
+    <record id="action_travel_trip" model="ir.actions.act_window">
+        <field name="name">My Trips</field>
+        <field name="res_model">travel.trip</field>
+        <field name="view_mode">kanban,list,calendar,gantt,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_travel_trip_search"/>
+        <field name="context">{'search_default_my_trips': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Plan your next adventure!
+            </p>
+            <p>Create a new trip to start building your personalized travel itinerary.</p>
+        </field>
+    </record>
+
+
+    <record id="action_travel_trip_dashboard" model="ir.actions.client">
+        <field name="name">Traveloop Dashboard</field>
+        <field name="tag">traveloop_dashboard</field>
+        <field name="target">main</field>
+    </record>
+</odoo>

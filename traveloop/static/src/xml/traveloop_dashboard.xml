@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="traveloop.Dashboard">
+        <div class="traveloop-dashboard o_action">
+            <!-- Hero Header -->
+            <div class="traveloop-hero">
+                <div class="traveloop-hero-content">
+                    <h1 class="traveloop-hero-title">
+                        <span class="traveloop-logo-icon"></span>
+                        Welcome to Traveloop
+                    </h1>
+                    <p class="traveloop-hero-subtitle">Your personalized travel planning companion</p>
+                    <button class="btn btn-lg traveloop-btn-primary" t-on-click="createTrip">
+                        <i class="fa fa-plus me-2"/>Plan New Trip
+                    </button>
+                </div>
+            </div>
+
+            <div class="container-fluid px-4 pb-4">
+                <!-- Stats Cards -->
+                <div class="row g-3 mb-4 traveloop-stats-row">
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card" t-on-click="openTrips">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                                <i class="fa fa-suitcase"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="state.stats.total_trips"/>
+                                <span class="traveloop-stat-label">Total Trips</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">
+                                <i class="fa fa-calendar"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="state.stats.upcoming_trips"/>
+                                <span class="traveloop-stat-label">Upcoming</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #20c997, #198754);">
+                                <i class="fa fa-check-circle"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="state.stats.completed_trips"/>
+                                <span class="traveloop-stat-label">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);">
+                                <i class="fa fa-map-marker"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="state.stats.total_stops"/>
+                                <span class="traveloop-stat-label">Destinations</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);">
+                                <i class="fa fa-book"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="state.stats.total_notes"/>
+                                <span class="traveloop-stat-label">Trip Notes</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-4 col-xl-2">
+                        <div class="traveloop-stat-card" t-on-click="openExpenses">
+                            <div class="traveloop-stat-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
+                                <i class="fa fa-money"/>
+                            </div>
+                            <div class="traveloop-stat-info">
+                                <span class="traveloop-stat-value" t-esc="formatCurrency(state.stats.total_budget)"/>
+                                <span class="traveloop-stat-label">Total Budget</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Recent Trips -->
+                    <div class="col-lg-8">
+                        <div class="traveloop-section-card">
+                            <div class="traveloop-section-header">
+                                <h3><i class="fa fa-plane me-2"/>My Trips</h3>
+                                <button class="btn btn-sm btn-outline-primary" t-on-click="openTrips">View All</button>
+                            </div>
+                            <div class="row g-3" t-if="state.trips.length > 0">
+                                <t t-foreach="state.trips" t-as="trip" t-key="trip.id">
+                                    <div class="col-md-6">
+                                        <div class="traveloop-trip-card" t-on-click="() => this.openTrip(trip.id)">
+                                            <div class="traveloop-trip-card-header">
+                                                <div class="traveloop-trip-gradient"/>
+                                                <h5 class="traveloop-trip-name" t-esc="trip.name"/>
+                                                <span class="badge traveloop-trip-badge"
+                                                      t-attf-style="background-color: #{getStateColor(trip.state)}">
+                                                    <t t-esc="getStateLabel(trip.state)"/>
+                                                </span>
+                                            </div>
+                                            <div class="traveloop-trip-card-body">
+                                                <div class="traveloop-trip-meta">
+                                                    <span><i class="fa fa-calendar-o me-1"/> <t t-esc="trip.date_start"/> → <t t-esc="trip.date_end"/></span>
+                                                </div>
+                                                <div class="d-flex justify-content-between mt-2">
+                                                    <span class="traveloop-trip-detail">
+                                                        <i class="fa fa-map-marker me-1"/><t t-esc="trip.stop_count"/> stops
+                                                    </span>
+                                                    <span class="traveloop-trip-detail">
+                                                        <i class="fa fa-clock-o me-1"/><t t-esc="trip.duration_days"/> days
+                                                    </span>
+                                                    <span class="traveloop-trip-detail" t-if="trip.total_budget">
+                                                        <i class="fa fa-money me-1"/><t t-esc="formatCurrency(trip.total_budget)"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <div t-else="" class="text-center py-5">
+                                <i class="fa fa-globe fa-3x text-muted mb-3"/>
+                                <p class="text-muted">No trips yet. Start planning your adventure!</p>
+                                <button class="btn traveloop-btn-primary" t-on-click="createTrip">
+                                    <i class="fa fa-plus me-1"/>Create First Trip
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Sidebar -->
+                    <div class="col-lg-4">
+                        <div class="traveloop-section-card mb-3">
+                            <h4 class="mb-3">Quick Actions</h4>
+                            <div class="d-grid gap-2">
+                                <button class="btn traveloop-quick-btn" t-on-click="createTrip">
+                                    <i class="fa fa-plus-circle me-2"/>New Trip
+                                </button>
+                                <button class="btn traveloop-quick-btn" t-on-click="exploreCities">
+                                    <i class="fa fa-search me-2"/>Explore Cities
+                                </button>
+                                <button class="btn traveloop-quick-btn" t-on-click="openChecklist">
+                                    <i class="fa fa-check-square-o me-2"/>Packing Checklist
+                                </button>
+                                <button class="btn traveloop-quick-btn" t-on-click="openExpenses">
+                                    <i class="fa fa-pie-chart me-2"/>Expense Tracker
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Popular Destinations -->
+                        <div class="traveloop-section-card">
+                            <div class="traveloop-section-header">
+                                <h4>Popular Destinations</h4>
+                                <button class="btn btn-sm btn-outline-primary" t-on-click="exploreCities">Explore</button>
+                            </div>
+                            <div class="traveloop-city-list" t-if="state.popularCities.length">
+                                <t t-foreach="state.popularCities" t-as="city" t-key="city.id">
+                                    <div class="traveloop-city-item">
+                                        <div class="traveloop-city-avatar">
+                                            <span class="fa fa-map-marker"/>
+                                        </div>
+                                        <div class="traveloop-city-info">
+                                            <span class="fw-bold" t-esc="city.name"/>
+                                            <small class="text-muted d-block" t-esc="city.country_id[1]"/>
+                                        </div>
+                                        <span class="badge text-bg-light">
+                                            ~$<t t-esc="Math.round(city.avg_daily_cost)"/>/day
+                                        </span>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>
